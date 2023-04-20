@@ -1,0 +1,23 @@
+{% block content %}
+<html>
+<head>
+  <title>Sign Up</title>
+</head>
+<body>
+  <h1>Sign Up</h1>
+  <form method="POST" action="/signup">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" value="{{ request.form.username }}" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" value="{{ request.form.password}}" required><br><br>
+
+    <label for="confirm_password">Confirm Password:</label>
+    <input type="password" id="confirm_password" name="confirm_password" value="{{ request.form.confirm_password}}" required><br><br>
+
+    <input type="submit" value="Sign Up">
+  </form>
+</body>
+</html>
+
+{% endblock %}
