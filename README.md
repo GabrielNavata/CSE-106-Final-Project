@@ -9,11 +9,11 @@ Final Project for CSE 106: Forum Webapp
 ~~~
  venv/Scripts/Activate
 ~~~
-3. Then install requirements
+3. Install requirements
 ~~~
  pip install -r requirements.txt
 ~~~
-4. Then run the run.py flask file
+4. Run the run.py flask file
 ~~~
  python run.py 
 ~~~
