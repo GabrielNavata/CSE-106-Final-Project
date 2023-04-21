@@ -19,8 +19,9 @@ def index():
 # Route for browsing page
 @views.route('/browse', methods=['GET', 'POST'])
 def browse():
+    posts = Posts.query.order_by(Posts.timestamp.desc()).all()
 
-    return render_template('browse.html')
+    return render_template('browse.html', posts=posts)
 
 # Route for individual posts
 # change later to include the post id in the route
@@ -31,12 +32,26 @@ def post():
 
 # Route for creating posts
 @views.route('/create', methods=['GET', 'POST'])
+@login_required
 def create():
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        user_id = current_user.id
+        
+        post = Posts(title=title, content=content, user_id=user_id)
+        db.session.add(post)
+        db.session.commit()
+        
+        return redirect(url_for('views.browse'))
+    else:
+        return render_template('create.html')
 
-    return render_template('create.html')
+    
 
 # Route for editing a user's own account
 @views.route('/account', methods=['GET', 'POST'])
+@login_required
 def account():
 
     return render_template('account.html')
