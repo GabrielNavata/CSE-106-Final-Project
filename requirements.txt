@@ -3,3 +3,4 @@ argparse
 Flask-Admin
 Flask-SQLAlchemy
 Flask-Login
+flask-cors
