@@ -9,6 +9,33 @@
     <h1>Post</h1>
     <a href="{{ url_for('views.index') }}">Index</a>
 
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>Posted by {{ post.user.username }} on {{ post.formatted_timestamp() }}</p>
+    <p>Category: {{ post.category }}</p>
+    <p>Views: {{ post.views }}</p>
+
+    <h2>Comments</h2>
+{% for comment in post.comments %}
+  <div class="comment">
+    <p>{{ comment.content }}</p>
+    <p>Upvotes: {{ comment.get_vote_counts()[0] }}</p>
+    <p>Downvotes: {{ comment.get_vote_counts()[1] }}</p>
+    <p>Posted by {{ comment.user.username }} on {{ comment.formatted_timestamp() }}</p>
+    <a href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 1) }}">upvote</a>
+    <a href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 0) }}">downvote</a>
+  </div>
+
+{% endfor %}
+
+<h3>Add Comment</h3>
+<form method="POST">
+  <label for="comment">Comment</label>
+  <textarea name="comment" id="comment"></textarea>
+
+  <input type="submit" value="Create Comment">
+</form>
+
 	<script src="static/js/script.js"></script>
   </body>
 </html>
