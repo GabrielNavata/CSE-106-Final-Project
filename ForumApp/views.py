@@ -44,31 +44,23 @@ def post(post_id):
 @views.route('/votes/<int:post_id>/<int:comment_id>/<action>', methods=['GET', 'POST'])
 @login_required
 def comment_vote(post_id, comment_id, action):
-    # comment = Comments.query.get_or_404(comment_id)
+
     comment = Comments.query.filter_by(id = comment_id).first_or_404()
     votes = CommentVotes.query.filter_by(user = current_user, comment = comment).first()
 
-    # if action == 'like':
-    #     comment_like = CommentLikes(liked=True, user_id=current_user.id, comment_id=comment.id)
-    #     db.session.add(comment_like)
-    # else:
-    #     comment_like = CommentLikes.query.filter_by(user_id=current_user.id, comment_id=comment.id).first()
-    #     db.session.delete(comment_like)
     if votes:
         if votes.vote != bool(int(action)):
             votes.vote = bool(int(action))
             db.session.commit()
             return redirect(url_for('views.post', post_id = post_id))
         else:
-            flash('You already vote for this post')
+            flash('You already vote for this post', category='error')
             return redirect(url_for('views.post', post_id = post_id))
         
     vote = CommentVotes(user=current_user, comment=comment, vote = bool(int(action)))
     db.session.add(vote)
     db.session.commit()
     return redirect(url_for('views.post', post_id = post_id))
-
-
 
 
 # Route for creating posts
@@ -96,11 +88,31 @@ def create():
 @login_required
 def account():
 
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        confirm_password = request.form['confirm_password']
+        current_password = request.form['current_password']
+
+        if username:
+            current_user.username = username
+
+        if password and password == confirm_password:
+            if check_password_hash(current_user.password, current_password):
+                current_user.password = generate_password_hash(password)
+
+        db.session.commit()
+        flash('Your account has been updated!', 'success')
+        return redirect(url_for('views.account'))
+
     return render_template('account.html')
 
 # Route for viewing a user profile
-# change later to include the username 
-@views.route('/profile', methods=['GET'])
-def profile():
+@views.route('/profile/<int:user_id>', methods=['GET'])
+def profile(user_id):
 
-    return render_template('profile.html')
+    user = Users.query.get_or_404(user_id)
+    posts = Posts.query.filter_by(user_id=user_id).all()
+
+
+    return render_template('profile.html', user=user, posts=posts)

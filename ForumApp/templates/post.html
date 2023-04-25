@@ -11,7 +11,10 @@
 
     <h1>{{ post.title }}</h1>
     <p>{{ post.content }}</p>
-    <p>Posted by {{ post.user.username }} on {{ post.formatted_timestamp() }}</p>
+    <p>
+    Posted by <a href="{{ url_for('views.profile', user_id = post.user.id ) }}">{{ post.user.username }}</a>
+     on {{ post.formatted_timestamp() }}
+    </p>
     <p>Category: {{ post.category }}</p>
     <p>Views: {{ post.views }}</p>
 
@@ -21,7 +24,10 @@
     <p>{{ comment.content }}</p>
     <p>Upvotes: {{ comment.get_vote_counts()[0] }}</p>
     <p>Downvotes: {{ comment.get_vote_counts()[1] }}</p>
-    <p>Posted by {{ comment.user.username }} on {{ comment.formatted_timestamp() }}</p>
+    <p>
+    Posted by <a href="{{ url_for('views.profile', user_id = post.user.id ) }}">{{ post.user.username }}</a>
+     on {{ post.formatted_timestamp() }}
+    </p>
     <a href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 1) }}">upvote</a>
     <a href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 0) }}">downvote</a>
   </div>

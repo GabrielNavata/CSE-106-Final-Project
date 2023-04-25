@@ -15,7 +15,10 @@
         <li>
           <h3><a href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h3>
           <p>{{ post.content }}</p>
-          <p>Posted by {{ post.user.username }} on {{ post.formatted_timestamp() }}</p>
+          <p>
+          Posted by <a href="{{ url_for('views.profile', user_id = post.user.id ) }}">{{ post.user.username }}</a>
+           on {{ post.formatted_timestamp() }}
+          </p>
           <p>Category: {{post.category}}</p>
           <p>Views: {{post.views}}</p>
         </li>

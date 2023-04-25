@@ -14,7 +14,7 @@
     <a href="{{ url_for('auth.logout') }}">Logout</a>
     <a href="{{ url_for('views.browse') }}">Browse</a>
     <a href="{{ url_for('views.account') }}">Account</a>
-    <a href="{{ url_for('views.profile') }}">User Profile</a>
+    <a href="{{ url_for('views.profile', user_id = current_user.id ) }}">User Profile</a>
     <a href="{{ url_for('views.create') }}">Create Post</a>
 	<script src="static/js/script.js"></script>
   </body>
