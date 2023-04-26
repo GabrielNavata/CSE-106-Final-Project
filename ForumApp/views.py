@@ -4,6 +4,8 @@ from .models import *
 from flask import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_required, current_user
+from sqlalchemy import or_
+
 
 views = Blueprint('views', __name__)
 
@@ -118,3 +120,15 @@ def profile(user_id):
 
 
     return render_template('profile.html', user=user, posts=posts)
+
+# Route for searching for posts on browse page
+@views.route('/search', methods = ['GET', 'POST'])
+def search():
+    if request.method == 'POST':
+        search = request.form["search"]
+        posts = Posts.query.filter(or_(Posts.content.contains(search), Posts.title.contains(search))).order_by(Posts.timestamp.desc()).all()
+        if posts:
+            return render_template("browse.html", posts = posts)
+        else:
+            return render_template("browse.html", posts = posts)   
+                    
