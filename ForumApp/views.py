@@ -52,14 +52,16 @@ def comment_vote(post_id, comment_id, action):
         if votes.vote != bool(int(action)):
             votes.vote = bool(int(action))
             db.session.commit()
+            flash('Your vote has been changed!', category='success')
             return redirect(url_for('views.post', post_id = post_id))
         else:
-            flash('You already vote for this post', category='error')
+            flash('You already voted for this post', category='warning')
             return redirect(url_for('views.post', post_id = post_id))
         
     vote = CommentVotes(user=current_user, comment=comment, vote = bool(int(action)))
     db.session.add(vote)
     db.session.commit()
+    flash('Your vote has been made!', category='success')
     return redirect(url_for('views.post', post_id = post_id))
 
 
@@ -76,7 +78,7 @@ def create():
         post = Posts(title=title, content=content, user_id=user_id, category=category)
         db.session.add(post)
         db.session.commit()
-        
+        flash('Your post has been created!', category='success')
         return redirect(url_for('views.browse'))
     else:
         return render_template('create.html')

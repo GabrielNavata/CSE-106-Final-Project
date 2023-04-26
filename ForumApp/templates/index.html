@@ -1,3 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block heading %}
+    Home Page
+{% endblock %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -8,14 +14,9 @@
     <link rel="stylesheet" href="static/css/style.css">
   </head>
   <body>
-    <h1>Index</h1>
-    <a href="{{ url_for('auth.sign_up') }}">Sign Up</a>
-    <a href="{{ url_for('auth.login') }}">Login</a>
-    <a href="{{ url_for('auth.logout') }}">Logout</a>
-    <a href="{{ url_for('views.browse') }}">Browse</a>
-    <a href="{{ url_for('views.account') }}">Account</a>
+    <h1>Home Page</h1>
     <a href="{{ url_for('views.profile', user_id = current_user.id ) }}">User Profile</a>
-    <a href="{{ url_for('views.create') }}">Create Post</a>
 	<script src="static/js/script.js"></script>
   </body>
 </html>
+{% endblock %}
