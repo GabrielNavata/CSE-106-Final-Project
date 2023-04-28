@@ -19,6 +19,21 @@
       <input type="text" name="search" id="search" />
       <input type="submit" value="Search" />
     </form>
+
+    <form id="filter-form" method="GET">
+      <label for="filter">Filter by:</label>
+      <select id="filter" name="filter">
+        {% if sel%}
+        <option value="views">Views</option>
+        <option value="recent">Recent</option>
+        {% else %}
+        <option value="recent">Recent</option>
+        <option value="views">Views</option>
+        {% endif %}
+      </select>
+      <input type="submit" value="Submit">
+    </form>
+    
     {% if not posts %}
     <p>
       <strong>No results for "{{request.form["search"]}}" found</strong> {%
@@ -35,12 +50,17 @@
           </p>
           <p>Category: {{post.category}}</p>
           <p>Views: {{post.views}}</p>
+          {% if current_user == post.user %}
+          <form method="POST" action="{{ url_for('views.delete_post', post_id=post.id) }}">
+            <input type="submit" value="Delete">
+          </form>
+          {% endif %}
+          
         </li>
       {% endfor %}
     </ul>
   
 
-	<script src="static/js/script.js"></script>
   </body>
 </html>
 {% endblock %}

@@ -5,6 +5,7 @@ from flask import *
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_required, current_user
 from sqlalchemy import or_
+from sqlalchemy.orm import joinedload
 
 
 views = Blueprint('views', __name__)
@@ -21,17 +22,33 @@ def index():
 # Route for browsing page
 @views.route('/browse', methods=['GET', 'POST'])
 def browse():
-    posts = Posts.query.order_by(Posts.timestamp.desc()).all()
+    # currently does not work with search function
+    filter = request.args.get('filter', default='recent')
+    
+    if filter == 'views':
+        sel = True
+        posts = Posts.query.order_by(Posts.views.desc()).all()
+    elif filter == 'recent':
+        sel = False
+        posts = Posts.query.order_by(Posts.timestamp.desc()).all()
+    else:
+        sel = False
+        posts = Posts.query.all()
 
-    return render_template('browse.html', posts=posts)
+    return render_template('browse.html', posts=posts, sel=sel)
+
+
 
 # Route for individual posts
-# change later to include the post id in the route
 @views.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def post(post_id):
     post = Posts.query.get_or_404(post_id)
-    post.views += 1
-    db.session.commit()
+
+    if request.method == 'GET':
+        # preventing view counter +1 if page is refeshed due to voting or deleting
+        if not request.args.get('voted') and not request.args.get('comment_del'):
+            post.views += 1
+            db.session.commit()
 
     if request.method == 'POST':
         comment_content = request.form['comment']
@@ -39,10 +56,9 @@ def post(post_id):
         db.session.add(new_comment)
         db.session.commit()
 
- 
-
     return render_template('post.html', post=post)
 
+# Route to handle upvotes and downvotes
 @views.route('/votes/<int:post_id>/<int:comment_id>/<action>', methods=['GET', 'POST'])
 @login_required
 def comment_vote(post_id, comment_id, action):
@@ -55,17 +71,53 @@ def comment_vote(post_id, comment_id, action):
             votes.vote = bool(int(action))
             db.session.commit()
             flash('Your vote has been changed!', category='success')
-            return redirect(url_for('views.post', post_id = post_id))
+            return redirect(url_for('views.post', post_id = post_id, voted=True))
         else:
-            flash('You already voted for this post', category='warning')
-            return redirect(url_for('views.post', post_id = post_id))
+            db.session.delete(votes)
+            db.session.commit()
+            flash('Your vote has been removed', category='success')
+            return redirect(url_for('views.post', post_id = post_id, voted=True))
         
     vote = CommentVotes(user=current_user, comment=comment, vote = bool(int(action)))
     db.session.add(vote)
     db.session.commit()
     flash('Your vote has been made!', category='success')
-    return redirect(url_for('views.post', post_id = post_id))
+    return redirect(url_for('views.post', post_id = post_id, voted=True))
 
+# Route for deleting comments
+@views.route('/delete_comment/<int:comment_id>', methods=['POST'])
+def delete_comment(comment_id):
+
+    comment = Comments.query.options(joinedload(Comments.post)).filter_by(id=comment_id).first()
+
+    # Check if the current user is the author of the comment
+    if comment.user != current_user:
+        flash("You can only delete your own comments.", category = 'warning')
+        return redirect(url_for('views.post', post_id=comment.post.id))
+
+
+    db.session.delete(comment)
+    db.session.commit()
+    flash('Your comment was deleted', category='success')
+
+    return redirect(url_for('views.post', post_id=comment.post.id, comment_del=True))
+
+# Route for deleting posts
+@views.route('/delete_post/<int:post_id>', methods=['POST'])
+@login_required
+def delete_post(post_id):
+    post = Posts.query.filter_by(id=post_id).first_or_404()
+
+    # Check if the current user is the author of the post
+    if post.user != current_user:
+        flash("You can only delete your own posts.", category='warning')
+        return redirect(url_for('views.post', post_id=post.id))
+
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your post was deleted', category='success')
+
+    return redirect(url_for('views.browse'))
 
 # Route for creating posts
 @views.route('/create', methods=['GET', 'POST'])
@@ -106,7 +158,7 @@ def account():
                 current_user.password = generate_password_hash(password)
 
         db.session.commit()
-        flash('Your account has been updated!', 'success')
+        flash('Your account has been updated!', category='success')
         return redirect(url_for('views.account'))
 
     return render_template('account.html')

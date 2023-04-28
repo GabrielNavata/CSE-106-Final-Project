@@ -23,7 +23,8 @@ class Posts(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     user = db.relationship('Users', backref=db.backref('posts', lazy=True))
 
-    comments = db.relationship('Comments', backref='post', lazy=True)
+    comments = db.relationship('Comments', backref='post', lazy=True, cascade="all, delete-orphan")
+
 
     def formatted_timestamp(self):
         return self.timestamp.strftime('%Y-%m-%d %H:%M:%S')
@@ -43,7 +44,7 @@ class Comments(db.Model):
 
     post_id = db.Column(db.Integer, db.ForeignKey('posts.id'), nullable=False)
 
-    comment_votes = db.relationship('CommentVotes', backref='comment_votes', lazy=True)
+    comment_votes = db.relationship('CommentVotes', backref='comment_votes', lazy=True, cascade="all, delete-orphan")
 
     def get_vote_counts(self):
         upvotes = CommentVotes.query.filter_by(comment_id=self.id, vote=True).count()

@@ -21,6 +21,11 @@
     </p>
     <p>Category: {{ post.category }}</p>
     <p>Views: {{ post.views }}</p>
+    {% if current_user == post.user %}
+    <form method="POST" action="{{ url_for('views.delete_post', post_id=post.id) }}">
+      <input type="submit" value="Delete">
+    </form>
+    {% endif %}
 
     <h2>Comments</h2>
 {% for comment in post.comments %}
@@ -32,6 +37,11 @@
     Posted by <a href="{{ url_for('views.profile', user_id = post.user.id ) }}">{{ post.user.username }}</a>
      on {{ post.formatted_timestamp() }}
     </p>
+    {% if current_user == comment.user %}
+    <form method="POST" action="{{ url_for('views.delete_comment', post_id=post.id, comment_id=comment.id) }}">
+      <input type="submit" value="Delete">
+    </form>
+    {% endif %}
     <a href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 1) }}">upvote</a>
     <a href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 0) }}">downvote</a>
   </div>
@@ -46,7 +56,6 @@
   <input type="submit" value="Create Comment">
 </form>
 
-	<script src="static/js/script.js"></script>
   </body>
 </html>
 {% endblock %}
