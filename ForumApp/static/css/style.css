@@ -1,1 +1,75 @@
 /*css*/
+body {
+    font-family: Arial;
+    padding: 20px;
+    background: #f1f1f1;
+  }
+
+  ul, ol {
+    list-style: none;
+  }
+
+  /*post card stuff*/
+
+  .card {
+    background-color: white;
+    padding: 20px;
+    margin-top: 20px;
+    position: relative;
+  }
+ 
+ .author{
+    text-align: right;
+ }
+ .card_info {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+  }
+  
+  .card_info p {
+    margin: 0;
+    font-size: 16px;
+    color: grey;
+  }
+
+  .card_title {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+  }
+
+  .card_content {
+    color: black;
+    left: 5px;
+  }
+ /*delete drop down menu*/
+ #ellipsis-icon {
+    cursor: pointer
+}
+
+  .card-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0.5;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    padding: 2px;
+    z-index: 0;
+    border: 1px solid rgb(1, 1, 16);
+  }
+  
+  .card-menu:hover .card-dropdown {
+    display: block;
+  }
+  
+  .card-menu {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  .att {
+    display: inline-block;
+  }

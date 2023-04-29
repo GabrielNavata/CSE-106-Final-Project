@@ -8,12 +8,12 @@
 <html lang="en">
   <head>
     <title>Browse</title>
-    <link rel="stylesheet" href="static/css/style.css">
   </head>
   <body>
+    <br>
+    <div class = 'container'>
     <h1>Browse</h1>
-    <a href="{{ url_for('views.create') }}">Create Post</a>
-	  
+
     <form action="{{ url_for('views.search') }}" method="POST">
       <label for="search">Search:</label>
       <input type="text" name="search" id="search" />
@@ -33,33 +33,55 @@
       </select>
       <input type="submit" value="Submit">
     </form>
+
+    <a href="{{ url_for('views.create') }}">Create Post</a>
     
     {% if not posts %}
     <p>
       <strong>No results for "{{request.form["search"]}}" found</strong> {%
       endif %}
     </p>
+  </div>
+    <div class = 'container'>
     <ul>
       {% for post in posts %}
+      <div class="card">
         <li>
-          <h3><a href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h3>
-          <p>{{ post.content }}</p>
-          <p>
-          Posted by <a href="{{ url_for('views.profile', user_id = post.user.id ) }}">{{ post.user.username }}</a>
-           on {{ post.formatted_timestamp() }}
-          </p>
-          <p>Category: {{post.category}}</p>
-          <p>Views: {{post.views}}</p>
-          {% if current_user == post.user %}
-          <form method="POST" action="{{ url_for('views.delete_post', post_id=post.id) }}">
-            <input type="submit" value="Delete">
-          </form>
+          <h3 ><a class="card_title" href="{{ url_for('views.post', post_id=post.id) }}">{{ post.title }}</a></h3>
+
+          {% if post.content|length <= 100 %}
+            <p class = "card_content">{{ post.content }}</p>
+          {% else %}
+            <p class = "card_content">{{ post.content[:100] }} ... </p>
           {% endif %}
+
+          <div class = "card_info">
+            <p>Category: {{post.category}}</p>
+            <p>Views: {{post.views}}</p>
+          </div>
+
+          {% if current_user == post.user %}
+          <span class="card-menu">
+            <i class="fa-solid fa-ellipsis" id="clickableAwesomeFont"></i>
+            <div class="card-dropdown">
+              <form method="POST" action="{{ url_for('views.delete_post', post_id=post.id) }}">
+                <input class="btn btn-link text-danger" type="submit" value="Delete">
+              </form>
+            </div>
+          </span>
+          {% endif %}
+          <div class = "author">
+            <p>
+            Posted by <a href="{{ url_for('views.profile', user_id = post.user.id ) }}">{{ post.user.username }}</a>
+            on {{ post.formatted_timestamp() }}
+            </p>
+          </div>
           
         </li>
+      </div>
       {% endfor %}
     </ul>
-  
+  </div>
 
   </body>
 </html>

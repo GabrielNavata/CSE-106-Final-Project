@@ -8,45 +8,88 @@
 <html lang="en">
   <head>
     <title>Post</title>
-    <link rel="stylesheet" href="static/css/style.css">
+    
   </head>
   <body>
-    <h1>Post</h1>
+    <br>
+    <div class = 'container'>
+      <h1>Post</h1>
+    </div>
 
-    <h2>{{ post.title }}</h2>
-    <p>{{ post.content }}</p>
-    <p>
-    Posted by <a href="{{ url_for('views.profile', user_id = post.user.id ) }}">{{ post.user.username }}</a>
-     on {{ post.formatted_timestamp() }}
-    </p>
-    <p>Category: {{ post.category }}</p>
-    <p>Views: {{ post.views }}</p>
-    {% if current_user == post.user %}
-    <form method="POST" action="{{ url_for('views.delete_post', post_id=post.id) }}">
-      <input type="submit" value="Delete">
-    </form>
-    {% endif %}
+    <div class = 'container'>
+      <div class="card">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
 
+        <div class = "card_info">
+          <p>Category: {{post.category}}</p>
+          <p>Views: {{post.views}}</p>
+        </div>
+
+        {% if current_user == post.user %}
+        <span class="card-menu">
+          <i class="fa-solid fa-ellipsis" id="clickableAwesomeFont"></i>
+          <div class="card-dropdown">
+            <form method="POST" action="{{ url_for('views.delete_post', post_id=post.id) }}">
+              <input class="btn btn-link text-danger" type="submit" value="Delete">
+            </form>
+          </div>
+        </span>
+        {% endif %}
+
+        <div class = "author">
+          <p>
+          Posted by <a href="{{ url_for('views.profile', user_id = post.user.id ) }}">{{ post.user.username }}</a>
+          on {{ post.formatted_timestamp() }}
+          </p>
+        </div>
+
+      </div>
+    </div>
+  <br>
+  <div class = 'container'>
     <h2>Comments</h2>
-{% for comment in post.comments %}
-  <div class="comment">
-    <p>{{ comment.content }}</p>
-    <p>Upvotes: {{ comment.get_vote_counts()[0] }}</p>
-    <p>Downvotes: {{ comment.get_vote_counts()[1] }}</p>
-    <p>
-    Posted by <a href="{{ url_for('views.profile', user_id = post.user.id ) }}">{{ post.user.username }}</a>
-     on {{ post.formatted_timestamp() }}
-    </p>
-    {% if current_user == comment.user %}
-    <form method="POST" action="{{ url_for('views.delete_comment', post_id=post.id, comment_id=comment.id) }}">
-      <input type="submit" value="Delete">
-    </form>
-    {% endif %}
-    <a href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 1) }}">upvote</a>
-    <a href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 0) }}">downvote</a>
   </div>
+      {% for comment in post.comments %}
+      <div class = 'container'>
+      <div class="card">
+      <div class="comment">
+        <p>{{ comment.content }}</p>
+        <div class = "card_info">
+        
+        <p><a 
+        href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 1) }}">
+        <i class="fa-solid fa-circle-up"></i></a> {{ comment.get_vote_counts()[0] }}</p>
+        <p><a 
+        class = "text-danger" href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 0) }}">
+        <i class="fa-solid fa-circle-down"></i></a> {{ comment.get_vote_counts()[1] }}</p>
+        
 
+        </div>
+        {% if current_user == comment.user %}
+        <span class="card-menu">
+          <i class="fa-solid fa-ellipsis" id="clickableAwesomeFont"></i>
+          <div class="card-dropdown">
+            <form method="POST" action="{{ url_for('views.delete_comment', post_id=post.id, comment_id=comment.id) }}">
+              <input class="btn btn-link text-danger" type="submit" value="Delete">
+            </form>
+          </div>
+        </span>
+        {% endif %}
+
+        <div class = "author">
+        <p>
+          Posted by <a href="{{ url_for('views.profile', user_id = post.user.id ) }}">{{ post.user.username }}</a>
+          on {{ post.formatted_timestamp() }}
+        </p>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endfor %}
+<div class = 'container'>
+{% if current_user.is_authenticated%}
 
 <h3>Add Comment</h3>
 <form method="POST">
@@ -55,6 +98,10 @@
 
   <input type="submit" value="Create Comment">
 </form>
+{% else %}
+  <p>Please login to comment</p>
+{% endif %}
+</div>
 
   </body>
 </html>
