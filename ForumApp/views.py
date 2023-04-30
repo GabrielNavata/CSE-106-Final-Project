@@ -178,9 +178,35 @@ def profile(user_id):
 def search():
     if request.method == 'POST':
         search = request.form["search"]
-        posts = Posts.query.filter(or_(Posts.content.contains(search), Posts.title.contains(search))).order_by(Posts.timestamp.desc()).all()
+        posts = Posts.query.filter(or_(Posts.content.contains(search), 
+                                       Posts.title.contains(search), 
+                                       Posts.category.contains(search))).order_by(Posts.timestamp.desc()).all()
+
         if posts:
-            return render_template("browse.html", posts = posts)
+            return render_template("browse.html", posts = posts, searched = search, in_search = True)
         else:
-            return render_template("browse.html", posts = posts)   
+            return render_template("browse.html", posts = posts) 
+        
+    if request.method == 'GET':     
+            search = request.args.get("searched")
+            filter = request.args.get('filter', default='recent')
+            if filter == 'views':
+                sel = True
+                posts = Posts.query.filter(or_(Posts.content.contains(search), 
+                                       Posts.title.contains(search), 
+                                       Posts.category.contains(search))).order_by(Posts.views.desc()).all()
+            elif filter == 'recent':
+                sel = False
+                posts = Posts.query.filter(or_(Posts.content.contains(search), 
+                                       Posts.title.contains(search), 
+                                       Posts.category.contains(search))).order_by(Posts.timestamp.desc()).all()
+            else:
+                sel = False
+                posts = Posts.query.all()
+
+            
+            return render_template("browse.html", posts = posts, sel = sel, searched = search,  in_search = True)
+    
+    else: 
+        return render_template("browse.html", posts = posts, sel = sel, searched = search,  in_search = True)
                     

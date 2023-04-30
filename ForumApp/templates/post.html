@@ -55,17 +55,16 @@
       <div class="card">
       <div class="comment">
         <p>{{ comment.content }}</p>
-        <div class = "card_info">
-        
-        <p><a 
-        href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 1) }}">
-        <i class="fa-solid fa-circle-up"></i></a> {{ comment.get_vote_counts()[0] }}</p>
-        <p><a 
-        class = "text-danger" href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 0) }}">
-        <i class="fa-solid fa-circle-down"></i></a> {{ comment.get_vote_counts()[1] }}</p>
-        
 
+        <div class = "card_info">
+          <p><a 
+          href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 1) }}">
+          <i class="fa-solid fa-circle-up"></i></a> {{ comment.get_vote_counts()[0] }}</p>
+          <p><a 
+          class = "text-danger" href="{{ url_for('views.comment_vote', comment_id = comment.id, post_id = post.id, action = 0) }}">
+          <i class="fa-solid fa-circle-down"></i></a> {{ comment.get_vote_counts()[1] }}</p>
         </div>
+        
         {% if current_user == comment.user %}
         <span class="card-menu">
           <i class="fa-solid fa-ellipsis" id="clickableAwesomeFont"></i>
@@ -88,13 +87,13 @@
     </div>
   </div>
 {% endfor %}
-<div class = 'container'>
+<br><div class = 'container'>
 {% if current_user.is_authenticated%}
 
 <h3>Add Comment</h3>
 <form method="POST">
-  <label for="comment">Comment</label>
-  <textarea name="comment" id="comment"></textarea>
+
+  <textarea name="comment" id="comment"></textarea><br>
 
   <input type="submit" value="Create Comment">
 </form>

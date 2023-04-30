@@ -16,24 +16,41 @@
 
     <form action="{{ url_for('views.search') }}" method="POST">
       <label for="search">Search:</label>
-      <input type="text" name="search" id="search" />
+      <input type="text" name="search" id="search" value = "{{searched}}" />
       <input type="submit" value="Search" />
     </form>
 
-    <form id="filter-form" method="GET">
-      <label for="filter">Filter by:</label>
-      <select id="filter" name="filter">
-        {% if sel%}
-        <option value="views">Views</option>
-        <option value="recent">Recent</option>
-        {% else %}
-        <option value="recent">Recent</option>
-        <option value="views">Views</option>
-        {% endif %}
-      </select>
-      <input type="submit" value="Submit">
-    </form>
-
+    {% if in_search %}
+      <form action="{{ url_for('views.search', searched = searched) }}" id="filter-form" method="GET">
+        <label for="filter">Filter by:</label>
+        <select id="filter" name="filter">
+          {% if sel%}
+          <option value="views">Views</option>
+          <option value="recent">Recent</option>
+          {% else %}
+          <option value="recent">Recent</option>
+          <option value="views">Views</option>
+          {% endif %}
+        </select>
+        <input name="searched" id="searched" value = "{{searched}}" type='hidden'>
+        <input type="submit" value="Submit">
+      </form>
+    {% else %}
+      <form id="filter-form" method="GET">
+        <label for="filter">Filter by:</label>
+        <select id="filter" name="filter">
+          {% if sel%}
+          <option value="views">Views</option>
+          <option value="recent">Recent</option>
+          {% else %}
+          <option value="recent">Recent</option>
+          <option value="views">Views</option>
+          {% endif %}
+        </select>
+        <input type="submit" value="Submit">
+      </form>
+    {% endif %}
+    
     <a href="{{ url_for('views.create') }}">Create Post</a>
     
     {% if not posts %}
