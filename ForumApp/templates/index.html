@@ -13,8 +13,31 @@
     <title>Index</title>
   </head>
   <body>
-    
-    <br><h1>Welcome To The Gaming Forum</h1>
+    <br><div class="index_container">
+    <br><h1>Welcome To The Gaming Forum</h1><br>
+      
+  </div>
+
+  <div class = "description">
+    <p>
+      Here you'll find a community of like-minded individuals here who share your your passion for video games and board games. 
+      From discussing the latest game releases and strategies, to sharing tips and tricks, our forum is the perfect place 
+      for gamers to come together and have fun. Join the conversation and become a part of our vibrant gaming community!
+    </p>
+  </div>
+<div class="index_container">
+  <div class="image-container">
+    <br><h3>Video Games</h3>
+    <img class="image" src="{{ url_for('static', filename='/images/controller.png') }}" alt="Image 1">
+    <a href="#" class="btn btn-secondary btn-lg " role="button" >Join the Conversation</a><br>
+  </div>
+  <br>
+  <div class="image-container">
+    <br><h3>Board Games</h3>
+    <img class="image" src="{{ url_for('static', filename='/images/chess_board.png') }}" alt="Image 2">
+    <a href="#" class="btn btn-secondary btn-lg " role="button" >Join the Conversation</a><br>
+  </div>
+</div>
 
   </body>
 </html>
