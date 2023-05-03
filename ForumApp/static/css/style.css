@@ -2,7 +2,7 @@
 body {
     font-family: 'Helvetica', 'Arial', sans-serif;
     padding: 20px;
-    background: #c5bebe;
+    background: #DDD0C8;
   }
 
   ul, ol {
@@ -60,7 +60,7 @@ body {
     position: absolute;
     top: 100%;
     right: 0.5;
-    background-color: #f1f1f1;
+    background-color: white;
     min-width: 100px;
     padding: 2px;
     z-index: 0;
@@ -108,7 +108,7 @@ body {
   }
 
   .description {
-    text-align: justify;
+    text-align: center;
     margin-top: 20px;
     margin-left: 390px;
     margin-right: 390px;
@@ -116,13 +116,6 @@ body {
     padding: 10px;
     font-size: 20px;
     font-weight: bold;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    transition: box-shadow 0.2s ease-in-out;
   }
 
-  .description:hover {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  }
 

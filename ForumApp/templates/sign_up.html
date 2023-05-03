@@ -9,19 +9,21 @@
   <title>Sign Up</title>
 </head>
 <body>
-  <h1>Sign Up</h1>
+  <div class = "container">
+  <br><h1>Sign Up</h1>
   <form method="POST" action="/signup">
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" value="{{ request.form.username }}" required><br><br>
+    <input type="text" id="username" name="username" class="form-control" value="{{ request.form.username }}" required><br>
 
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" value="{{ request.form.password}}" required><br><br>
+    <input type="password" id="password" name="password" class="form-control" value="{{ request.form.password}}" required><br>
 
     <label for="confirm_password">Confirm Password:</label>
-    <input type="password" id="confirm_password" name="confirm_password" value="{{ request.form.confirm_password}}" required><br><br>
+    <input type="password" id="confirm_password" name="confirm_password" class="form-control" value="{{ request.form.confirm_password}}" required><br>
 
-    <input type="submit" value="Sign Up">
+    <input type="submit" value="Sign Up" class="btn btn-secondary btn">
   </form>
+</div>
 </body>
 </html>
 

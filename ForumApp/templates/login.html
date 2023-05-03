@@ -9,16 +9,18 @@
   <title>Login</title>
 </head>
 <body>
-  <h1>Login</h1>
+  <div class = "container">
+  <br><h1>Login</h1>
   <form method="POST" action="/login">
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" value="{{ request.form.username }}" required><br><br>
+    <input type="text" id="username" name="username" class="form-control" value="{{ request.form.username }}" required><br>
 
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" value="{{ request.form.password}}" required><br><br>
+    <input type="password" id="password" name="password" class="form-control" value="{{ request.form.password}}" required><br>
 
-    <input type="submit" value="Login">
+    <input type="submit" value="Login" class="btn btn-secondary btn">
   </form>
+  </div>
 </body>
 </html>
 
