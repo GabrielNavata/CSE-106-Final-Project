@@ -108,10 +108,8 @@ body {
   }
 
   .description {
-    text-align: left;
+    text-align: center;
     margin-top: 20px;
-    margin-left: 390px;
-    margin-right: 390px;
     margin-bottom: 20px;
     padding: 10px;
     font-size: 20px;
