@@ -16,17 +16,17 @@
     <a href="{{ url_for('views.profile', user_id = current_user.id ) }}">User Profile</a>
     <form method="POST" action="{{ url_for('views.account') }}">
 
-        <label for="username">Username</label>
+        <label for="username:">Username</label>
         <input type="text" name="username" id="username" class="form-control" value="{{ current_user.username }}"><br>
 
-        <label for="password">New Password</label>
+        <label for="password:">New Password</label>
         <input type="password" name="password" id="password" class="form-control"><br>
 
 
-        <label for="confirm_password">Confirm New Password</label>
+        <label for="confirm_password:">Confirm New Password</label>
         <input type="password" name="confirm_password" id="confirm_password" class="form-control"><br>
 
-        <label for="current_password">Current Password</label>
+        <label for="current_password:">Current Password</label>
         <input type="password" name="current_password" id="current_password" class="form-control"><br>
 
       <button type="submit" class="btn btn-primary">Update</button>

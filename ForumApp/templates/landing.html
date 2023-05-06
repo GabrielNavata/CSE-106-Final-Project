@@ -25,8 +25,10 @@
     </div>
   <div class="index_container">
       <span>
-      <a href="{{ url_for('auth.sign_up') }}" class="btn btn-secondary btn-lg " role="button" >Sign Up</a>
+      <p>New to the forums?</p>
+      <a href="{{ url_for('auth.sign_up') }}" class="btn btn-secondary btn-lg " role="button" >Sign Up</a><br><br>
 
+      <p>Returning user? Welcome back.</p>
       <a href="{{ url_for('auth.login') }}" class="btn btn-secondary btn-lg " role="button" >Login</a>
     </span>
   </div>
