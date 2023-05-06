@@ -23,7 +23,7 @@
   </div>
 <div class="index_container">
   <div class="image-container">
-    <br><h3>Video Games</h3>
+    <br><h3 id = video_title>Video Games</h3>
     <img class="image" src="{{ url_for('static', filename='/images/controller.png') }}" alt="Image 1">
     <form action="{{ url_for('views.search') }}" method="POST">
       <input name="search" id="search" value = "Video Games" type='hidden' />
@@ -32,11 +32,11 @@
   </div>
   <br>
   <div class="image-container">
-    <br><h3>Board Games</h3>
+    <br><h3 id = board_title>Board Games</h3>
     <img class="image" src="{{ url_for('static', filename='/images/chess_board.png') }}" alt="Image 2">
     <form action="{{ url_for('views.search') }}" method="POST">
       <input name="search" id="search" value = "Board Games" type='hidden' />
-      <input class="btn btn-secondary btn-lg " id = "board_button" role="button" type="submit" value="Strategize" />
+      <input class="btn btn-secondary btn-lg " id = "board_forum" role="button" type="submit" value="Strategize" />
     </form><br>
   </div>
 </div>

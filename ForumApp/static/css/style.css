@@ -121,8 +121,16 @@ ul, ol {
   background-color: red;
 }
 
+#board_title{
+  color:red;
+}
+
 #video_button{
   background-color: blue;
+}
+
+#video_title{
+  color: red;
 }
 
 
