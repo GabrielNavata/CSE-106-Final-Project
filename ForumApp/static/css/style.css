@@ -118,11 +118,11 @@ ul, ol {
 }
 
 #board_button{
-  color: red;
+  background-color: red;
 }
 
 #video_button{
-  color: blue;
+  background-color: blue;
 }
 
 
