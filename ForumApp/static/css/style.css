@@ -53,7 +53,7 @@ body {
  /*delete drop down menu*/
  #ellipsis-icon {
     cursor: pointer
-}
+  }
 
   .card-dropdown {
     display: none;
@@ -116,12 +116,12 @@ body {
     font-weight: bold;
   }
 
-  #board button{
-    background-color: red;
+  #board_button{
+    color: red;
   }
 
-  #video button{
-    background-color: blue;
+  #video_button{
+    color: blue;
   }
 
 
