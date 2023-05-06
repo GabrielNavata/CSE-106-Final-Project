@@ -13,7 +13,7 @@
   <body>
     <div class = "container"><br>
     <h1>Account</h1>
-    <a href="{{ url_for('views.profile', user_id = current_user.id ) }}">User Profile</a>
+    <a href="{{ url_for('views.profile', user_id = current_user.id ) }}" id = "usernow" class = "btn btn-secondary" role = "button">User Profile</a>
     <form method="POST" action="{{ url_for('views.account') }}">
 
         <label for="username">Username:</label>
