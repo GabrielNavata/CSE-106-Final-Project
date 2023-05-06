@@ -20,16 +20,16 @@
   
     <div class = "description">
       <p>
-        Join the conversation and become a part of our vibrant gaming community!
+        Join the conversation and become a part of our vibrant gaming community! Talk it up with other players!
       </p>
     </div>
   <div class="index_container">
       <span>
-      <p>New to the forums?</p>
-      <a href="{{ url_for('auth.sign_up') }}" class="btn btn-secondary btn-lg " role="button" >Sign Up</a><br><br>
+      <p>New to the forums? Join now to start talking and asking!</p>
+      <a href="{{ url_for('auth.sign_up') }}" id = "signupbutton" class="btn btn-secondary btn-lg " role="button" >Sign Up</a><br><br>
 
       <p>Returning user? Welcome back.</p>
-      <a href="{{ url_for('auth.login') }}" class="btn btn-secondary btn-lg " role="button" >Login</a>
+      <a href="{{ url_for('auth.login') }}" id = "loginbutton" class="btn btn-secondary btn-lg " role="button" >Login</a>
     </span>
   </div>
 

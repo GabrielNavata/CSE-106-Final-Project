@@ -133,4 +133,18 @@ ul, ol {
   color: blue;
 }
 
+#newforum{
+  background-color: orange;
+}
 
+#signupbutton{
+  background-color: orangered;
+}
+
+#loginbutton{
+  background-color: green;
+}
+
+#newforumcreate{
+  background-color: yellowgreen;
+}

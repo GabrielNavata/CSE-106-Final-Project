@@ -51,7 +51,7 @@
       </form>
     {% endif %}
 
-    <a href = "{{url_for('views.create')}}" class = "btn btn-secondary btn-lg " role = "button">Create Post</a>
+    <a href = "{{url_for('views.create')}}" id = "newforum" class = "btn btn-secondary btn-lg " role = "button">New Post</a>
 
     {% if not posts %}
     <p>
