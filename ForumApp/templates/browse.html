@@ -50,8 +50,10 @@
         <input type="submit" value="Submit">
       </form>
     {% endif %}
-    
-    <a href="{{ url_for('views.create') }}">Create Post</a>
+
+    <form method = "POST", action = "{{ url_for('views.create') }}">
+      <input type = "submit" value = "Create Post" class = "btn btn-secondary">
+    </form>
     
     {% if not posts %}
     <p>
