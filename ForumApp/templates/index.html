@@ -27,7 +27,7 @@
     <img class="image" src="{{ url_for('static', filename='/images/controller.png') }}" alt="Image 1">
     <form action="{{ url_for('views.search') }}" method="POST">
       <input name="search" id="search" value = "Video Games" type='hidden' />
-      <input class="btn btn-secondary btn-lg " role="button" type="submit" value="Plug In" />
+      <input class="btn btn-secondary btn-lg " id = "video button" role="button" type="submit" value="Plug In" />
     </form><br>
   </div>
   <br>
@@ -36,7 +36,7 @@
     <img class="image" src="{{ url_for('static', filename='/images/chess_board.png') }}" alt="Image 2">
     <form action="{{ url_for('views.search') }}" method="POST">
       <input name="search" id="search" value = "Board Games" type='hidden' />
-      <input class="btn btn-secondary btn-lg " role="button" type="submit" value="Strategize" />
+      <input class="btn btn-secondary btn-lg " id = "board button" role="button" type="submit" value="Strategize" />
     </form><br>
   </div>
 </div>

@@ -116,4 +116,12 @@ body {
     font-weight: bold;
   }
 
+  #board button{
+    color: red;
+  }
+
+  #video button{
+    color: blue;
+  }
+
 
