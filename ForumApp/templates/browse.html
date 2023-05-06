@@ -51,10 +51,8 @@
       </form>
     {% endif %}
 
-    <form method = "POST", action = "{{ url_for('views.create') }}">
-      <input type = "submit" value = "Create Post" class = "btn btn-secondary">
-    </form>
-    
+    <a href = "{{url_for ('views.create')}}"></a>
+
     {% if not posts %}
     <p>
       <strong>No results for "{{request.form["search"]}}" found</strong> {%
